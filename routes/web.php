@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Jetstream\Rules\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
         //do delete work
         Route::get('delete/{id}',[CategoryController::class,'delete'])->name('admin#delete');
+
+        //editpage
+        Route::get('edit/page/{id}',[CategoryController::class,'editPage'])->name('admin#editPage');
+
+        //do update work
+        Route::post('update/{id}', [CategoryController::class, 'update'])->name('admin#update');
 
     });
 

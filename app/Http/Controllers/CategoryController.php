@@ -13,7 +13,7 @@ class CategoryController extends Controller
         $categories = Category::when(request('searchdata'),function($q){
             $key=request('searchdata');
             $q->where('category_name','like','%'.$key.'%');
-        })->orderBy('category_id','desc')->paginate(4);
+        })->orderBy('id','desc')->paginate(4);
         return view('admin.category.list',compact('categories'));
     }
     //direct category create page
@@ -28,19 +28,33 @@ class CategoryController extends Controller
        return redirect()->route('admin#categorylist')->with(['message'=>'Created Successfully']);
     }
     //do delete category
-
     public function delete($id){
-        Category::where('category_id',$id)->delete();
+        Category::where('id',$id)->delete();
         return back()->with(['message'=>'Delete Successfully']);
     }
 
+    //direct edit page
+    public function editPage($id){
+        $data=Category::where('id',$id)->get();
+        return view('admin.category.edit',compact('data'));
+    }
+
+    //do update category
+    public function update(Request $request)
+    {
+        $this->categoryValidation($request);
+        $data = $this->requestCategoryData($request);
+        $id= $request->categoryId;
+        Category::where('id',$id)->update($data);
+        return redirect()->route('admin#categorylist')->with(['message' => 'Updated Successfully']);
+    }
 
 
 
     //category Validation Check
     private function categoryValidation($request){
         Validator::make($request->all(),[
-            'categoryName'=> 'required|unique:categories,category_name'
+            'categoryName'=> 'required|unique:categories,category_name,'. $request->categoryId,
         ],[
             'categoryName.required' => 'The category name field is required.You Need To Fill',
             'categoryName.unique' => 'The category name field is already created.',

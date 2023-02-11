@@ -81,20 +81,19 @@
                         <tbody>
                             @foreach ($categories as $category)
                             <tr class="tr-shadow">
-                                <td>{{$category['category_id']}}</td>
+                                <td>{{$category['id']}}</td>
                                 <td>
                                     <span class="block-email"> {{$category['category_name']}}</span>
                                 </td>
                                 <td>{{$category['updated_at']->format("d/ F/ Y")}}</td>
                                 <td>
                                     <div class="table-data-feature">
-                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                            <i class="zmdi zmdi-mail-send"></i>
-                                        </button>
-                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                            <i class="zmdi zmdi-edit"></i>
-                                        </button>
-                                        <a href="{{ route('admin#delete',$category['category_id']) }}">
+                                        <a href="{{route('admin#editPage',$category['id'])}}" class="mx-2">
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </button>
+                                        </a>
+                                        <a href="{{ route('admin#delete',$category['id']) }}" class="mx-2">
                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                                                 <i class="zmdi zmdi-delete"></i>
                                             </button>
