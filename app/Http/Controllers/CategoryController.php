@@ -10,7 +10,10 @@ class CategoryController extends Controller
 {
     //direct category list page
     public function list(){
-        $categories = Category::orderBy('category_id','desc')->get();
+        $categories = Category::when(request('searchdata'),function($q){
+            $key=request('searchdata');
+            $q->where('category_name','like','%'.$key.'%');
+        })->orderBy('category_id','desc')->paginate(4);
         return view('admin.category.list',compact('categories'));
     }
     //direct category create page
@@ -22,8 +25,18 @@ class CategoryController extends Controller
        $this->categoryValidation($request);
        $data=$this->requestCategoryData($request);
        Category::create($data);
-       return redirect()->route('admin#categorylist');
+       return redirect()->route('admin#categorylist')->with(['message'=>'Created Successfully']);
     }
+    //do delete category
+
+    public function delete($id){
+        Category::where('category_id',$id)->delete();
+        return back()->with(['message'=>'Delete Successfully']);
+    }
+
+
+
+
     //category Validation Check
     private function categoryValidation($request){
         Validator::make($request->all(),[

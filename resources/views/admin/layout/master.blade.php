@@ -18,6 +18,8 @@
     <link href="{{asset('admin/vendor/mdi-font/css/material-design-iconic-font.min.css')}}" rel="stylesheet" media="all">
 
     <!-- Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
     <link href="{{asset('admin/vendor/bootstrap-4.1/bootstrap.min.css')}}" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
@@ -165,6 +167,8 @@
     <!-- Jquery JS-->
     <script src="{{asset('admin/vendor/jquery-3.2.1.min.js')}}"></script>
     <!-- Bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
     <script src="{{asset('admin/vendor/bootstrap-4.1/popper.min.js')}}"></script>
     <script src="{{asset('admin/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
     <!-- Vendor JS       -->

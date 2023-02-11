@@ -39,6 +39,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         //do create work
         Route::post('create',[CategoryController::class,'create'])->name('admin#create');
 
+        //do delete work
+        Route::get('delete/{id}',[CategoryController::class,'delete'])->name('admin#delete');
+
     });
 
     //user

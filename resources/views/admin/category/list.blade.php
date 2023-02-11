@@ -30,6 +30,43 @@
                         </button>
                     </div>
                 </div>
+                <div class="row align-middle">
+                    @if (session('message'))
+                    <div class="col-6 offset-1 text-center">
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <strong>{{session('message')}}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-2">
+                        <form action="{{route('admin#categorylist')}}" method="get">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search Category" name="searchdata" value="{{request('searchdata')}}">
+                                <button class="btn btn-outline-primary" type="submit">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    @else
+                    <div class="offset-9">
+                        <form action="{{route('admin#categorylist')}}" method="get">
+                            <div class="col-3 input-group">
+                                <input type="text" class="form-control" placeholder="Search Category" name="searchdata" value="{{request('searchdata')}}">
+                                <button class="btn btn-outline-primary" type="submit">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    @endif
+                    <div class="row mt-3">
+                        <div class="col-3">
+                            <h5>Total Category - {{$categories->total()}}</h5>
+                        </div>
+                    </div>
+                </div>
+                @if (count($categories) != 0)
                 <div class="table-responsive table-responsive-data2">
                     <table class="table table-data2">
                         <thead>
@@ -44,7 +81,7 @@
                         <tbody>
                             @foreach ($categories as $category)
                             <tr class="tr-shadow">
-                                <td>Lori Lynch</td>
+                                <td>{{$category['category_id']}}</td>
                                 <td>
                                     <span class="block-email"> {{$category['category_name']}}</span>
                                 </td>
@@ -57,12 +94,11 @@
                                         <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                             <i class="zmdi zmdi-edit"></i>
                                         </button>
-                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                            <i class="zmdi zmdi-delete"></i>
-                                        </button>
-                                        <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                            <i class="zmdi zmdi-more"></i>
-                                        </button>
+                                        <a href="{{ route('admin#delete',$category['category_id']) }}">
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -70,7 +106,15 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-2">
+                        {{ $categories->appends(request()->query())->links() }}
+                    </div>
                 </div>
+                @else
+                <div>
+                    <h3 class="text-center text-muted mt-5">There is no Category Here.</h3>
+                </div>
+                @endif
                 <!-- END DATA TABLE -->
             </div>
         </div>
